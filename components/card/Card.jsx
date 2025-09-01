@@ -6,24 +6,26 @@ import Image from "next/image";
 const Card = ({ key, item }) => {
   return (
     <div className={styles.container} key={key}>
-      <div className={styles.imageContainer}>
-        <Image src="/p1.jpeg" alt="Post 1" fill />
-      </div>
+      {item.img && (
+        <div className={styles.imageContainer}>
+          <Image
+            src={item.img}
+            alt={item.title}
+            fill
+            className={styles.image}
+          />
+        </div>
+      )}
       <div className={styles.textContainer}>
         <div className={styles.detail}>
-          <span className={styles.date}>29.08.2025</span>
+          <span className={styles.date}>{item.createdAt.substring(0, 10)}</span>
           <span className={styles.category}>{item.catSlug}</span>
         </div>
-        <Link href="/">
+        <Link href={`/posts/${item.id}`}>
           <h1>{item.title}</h1>
         </Link>
-        <p className={styles.desc}>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Adipisci
-          cupiditate labore debitis quis vitae unde et omnis. Cupiditate laborum
-          tenetur ex atque, molestiae voluptatibus placeat assumenda? Corporis
-          optio accusantium cupiditate?
-        </p>
-        <Link href="/" className={styles.link}>
+        <p className={styles.desc}>{item.desc.substring(0, 10)}</p>
+        <Link href={`/posts/${item.id}`} className={styles.link}>
           Read More
         </Link>
       </div>
